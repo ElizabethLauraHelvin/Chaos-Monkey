@@ -8,11 +8,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     g++ \
     && rm -rf /var/lib/apt/lists/*
 
-COPY package.json package-lock.json ./
+COPY backend/package*.json ./
 
 RUN npm ci --omit=dev --build-from-source
 
-COPY . .
+COPY backend/ ./
+COPY frontend/ /frontend/
 
 ENV NODE_ENV=production
 ENV PORT=3000
